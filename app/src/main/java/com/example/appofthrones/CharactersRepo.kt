@@ -9,6 +9,12 @@ object CharactersRepo {
         return field
     }
 
+      fun findCharacterById(id : String): Character? {
+        return characters.find { character ->
+            character.id == id
+        }
+    }
+
    private fun dummyCharacters(): MutableList<Character> {
       return (1..10).map {
            intToCharacter(it)

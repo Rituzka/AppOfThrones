@@ -1,11 +1,11 @@
 package com.example.appofthrones
 
-import android.content.Intent
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
 import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_detail.*
+
 
 
 
@@ -16,15 +16,23 @@ class DetailActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_detail)
 
-        val button: Button = findViewById(R.id.button)
+        val id = intent.getStringExtra("key_id")
+        val character = CharactersRepo.findCharacterById(id)
 
+        character?.let {
+            with(character) {
+                labelName.text = name
+                labelTitle.text = title
+                labelBorn.text = born
+                labelParents.text = "${father} & ${mother}"
+                labelQuote.text = quote
+                labelSpouse.text = spouse
+                button.text = house.name
+            }
+        }
+    button.setOnClickListener {
+        Toast.makeText(this, character?.house?.name, Toast.LENGTH_LONG ).show()
+
+        }
     }
-
-    fun showDetails(button: View){
-            val intent= Intent(this, CharactersActivity::class.java)
-          startActivity(intent)
-
-
-    }
-
 }
