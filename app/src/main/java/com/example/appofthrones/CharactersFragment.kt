@@ -23,7 +23,8 @@ class CharactersFragment: Fragment() {
 
     val adapter: CharactersAdapter by lazy {
         val adapter= CharactersAdapter { item, position ->
-            showDetails(item.id)
+            clickListener.onItemClicked(item)
+
         }
         adapter
     }
@@ -36,7 +37,7 @@ class CharactersFragment: Fragment() {
         if(context is onItemClickListener)
             clickListener = context
         else
-            throw IllegalArgumentException("Attached activity doesn't implement CharacterFragment.onItemClickListener")
+            throw IllegalArgumentException("Attached activity doesn't implement CharacterFragment.onItemClickListener") as Throwable
     }
 
     override fun onCreateView(
@@ -57,14 +58,6 @@ class CharactersFragment: Fragment() {
         list.adapter = adapter
 
     }
-    fun showDetails(characterId: String){
-        val intent= Intent(context, DetailActivity::class.java)
-        intent.putExtra("key_id", characterId)
-
-        startActivity(intent)
-
-    }
-
     interface onItemClickListener {
         fun onItemClicked(character: Character){
 

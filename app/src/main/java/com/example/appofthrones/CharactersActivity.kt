@@ -23,15 +23,33 @@ class CharactersActivity: AppCompatActivity(),CharactersFragment.onItemClickList
         }
 
     override fun onItemClicked(character: Character) {
-            showDetails(character.id)
-        }
-    fun showDetails(characterId: String){
+        if (isDetailViewAvailable()){
+            showFragmentsDetail(character.id)
+
+        }else
+            launchDetailActivity(character.id)
+    }
+
+    private fun showFragmentsDetail(characterId: String) {
+        val detailFragment = DetailFragment()
+        //pasamos argumento al fragmento con llave, valor a través de arguments
+        val args = Bundle()
+        args.putString("key_id", characterId)
+        detailFragment.arguments = args
+
+       this.supportFragmentManager
+           .beginTransaction()
+           .replace(R.id.detailContainer, detailFragment)
+           .commit()
+    }
+    //función lineal, a la derecha se la compara a una expresión
+    private fun isDetailViewAvailable() = detailContainer != null
+
+    private fun launchDetailActivity(characterId: String){
         val intent= Intent(this, DetailActivity::class.java)
         intent.putExtra("key_id", characterId)
 
         startActivity(intent)
-
-    }
-
+     }
     }
 
