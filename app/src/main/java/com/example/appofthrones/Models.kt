@@ -1,5 +1,7 @@
 package com.example.appofthrones
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import java.util.*
 
 data class Character(
@@ -17,5 +19,35 @@ data class Character(
 data class House (
     var name: String,
     var region: String,
-    var words: String
-)
+    var words: String){
+
+    companion object {
+        private val DEFAULT_PALETTE = arrayOf(R.color.starkOverlay,R.color.starkBase)
+
+        private val colors = mapOf(
+            Pair("stark", arrayOf(R.color.starkOverlay, R.color.starkBase)),
+            Pair("lannister", arrayOf(R.color.lannisterOverlay, R.color.lannisterBase)),
+            Pair("tyrell", arrayOf(R.color.tyrellOverlay, R.color.tyrellBase)),
+            Pair("arryn", arrayOf(R.color.arrynOverlay, R.color.arrynBase)),
+            Pair("targaryen", arrayOf(R.color.targaryenOverlay, R.color.targaryenBase)),
+            Pair("martell", arrayOf(R.color.martellOverlay, R.color.martellBase)),
+            Pair("baratheon", arrayOf(R.color.baratheonOverlay, R.color.baratheonBase)),
+            Pair("greyjoy", arrayOf(R.color.greyjoyOverlay, R.color.greyjoyBase)),
+            Pair("frey", arrayOf(R.color.freyOverlay, R.color.freyBase)),
+            Pair("tully", arrayOf(R.color.tullyOverlay, R.color.tullyBase))
+        )
+
+        @RequiresApi(Build.VERSION_CODES.N)
+        fun getOverlayColor(houseId: String): Int {
+            val pallete: Array<Int> = colors.getOrDefault(houseId, DEFAULT_PALETTE)
+            return pallete[0]
+
+        }
+
+        @RequiresApi(Build.VERSION_CODES.N)
+        fun getBaseColor(houseId: String): Int {
+            val pallete: Array<Int> = colors.getOrDefault(houseId, DEFAULT_PALETTE)
+            return pallete[1]
+        }
+    }
+}

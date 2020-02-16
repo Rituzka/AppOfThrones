@@ -1,5 +1,7 @@
 package com.example.appofthrones
 
+import java.util.*
+
 object CharactersRepo {
     val characters: MutableList<Character> = mutableListOf()
     get() {
@@ -9,7 +11,7 @@ object CharactersRepo {
         return field
     }
 
-      fun findCharacterById(id : String): Character? {
+      fun findCharacterById(id: String?): Character? {
         return characters.find { character ->
             character.id == id
         }
@@ -32,12 +34,17 @@ object CharactersRepo {
             father = "Father ${int}",
             mother = "Mother ${int}",
             spouse = "Spouse ${int}",
-            house = House(
-                name = "House ${int}",
-                region = "Region ${int}",
-                words = "Lema ${int}"
-            )
+            house = dummyHouse()
         )
+    }
+
+    private fun dummyHouse(): House {
+        val ids = arrayOf("stark", "lannister","tyrell", "arryn", "baratheon","tully")
+        val randomIdPosition = Random().nextInt(ids.size)
+
+        return House(name = ids[randomIdPosition],
+            region = "Region",
+            words = "Lema")
     }
 }
 
