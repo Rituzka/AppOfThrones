@@ -6,13 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_detail.button
-import kotlinx.android.synthetic.main.fragment_detail.labelBorn
-import kotlinx.android.synthetic.main.fragment_detail.labelName
-import kotlinx.android.synthetic.main.fragment_detail.labelParents
-import kotlinx.android.synthetic.main.fragment_detail.labelQuote
-import kotlinx.android.synthetic.main.fragment_detail.labelSpouse
-import kotlinx.android.synthetic.main.fragment_detail.labelTitle
+import kotlinx.android.synthetic.main.fragment_detail.*
 
 class DetailFragment: Fragment() {
 
@@ -54,10 +48,10 @@ class DetailFragment: Fragment() {
                 labelParents.text = "${father} & ${mother}"
                 labelQuote.text = quote
                 labelSpouse.text = spouse
-                button.text = house.name
+
             }
         }
-            button.setOnClickListener {
+            btnHouse.setOnClickListener {
                 Toast.makeText(context, character?.house?.words, Toast.LENGTH_LONG).show()
             }
         }
