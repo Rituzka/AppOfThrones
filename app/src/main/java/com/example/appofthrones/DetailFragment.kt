@@ -1,12 +1,18 @@
 package com.example.appofthrones
 
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_detail.*
+
+
 
 class DetailFragment: Fragment() {
 
@@ -34,6 +40,7 @@ class DetailFragment: Fragment() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -48,6 +55,14 @@ class DetailFragment: Fragment() {
                 labelParents.text = "${father} & ${mother}"
                 labelQuote.text = quote
                 labelSpouse.text = spouse
+
+                val overlayColor = House.getOverlayColor(character.house.name)
+                imgOverlay.background =
+                    context?.let { it1 -> ContextCompat.getDrawable(it1,overlayColor) }
+
+                val baseColor = House.getBaseColor(character.house.name)
+                btnHouse.backgroundTintList =
+                    context?.let { it1 -> ContextCompat.getColorStateList(it1, baseColor) }
 
             }
         }
