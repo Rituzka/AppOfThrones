@@ -64,6 +64,11 @@ class DetailFragment: Fragment() {
                 btnHouse.backgroundTintList =
                     context?.let { it1 -> ContextCompat.getColorStateList(it1, baseColor) }
 
+                val idDrawable = House.getIcon(character.house.name)
+                val drawable = context?.let { it1 -> ContextCompat.getDrawable(it1, idDrawable) }
+                btnHouse.setImageDrawable(drawable)
+
+
             }
         }
             btnHouse.setOnClickListener {
