@@ -10,7 +10,8 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_detail.*
+import kotlinx.android.synthetic.main.data_character.*
+import kotlinx.android.synthetic.main.header_character.*
 
 
 
