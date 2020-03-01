@@ -1,18 +1,17 @@
 package com.example.appofthrones
 
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.data_character.*
 import kotlinx.android.synthetic.main.header_character.*
-
+import kotlinx.android.synthetic.main.item_character.view.*
 
 
 class DetailFragment: Fragment() {
@@ -52,29 +51,39 @@ class DetailFragment: Fragment() {
             with(character) {
                 labelName.text = name
                 labelTitle.text = title
+                labelActor.text = actor
                 labelBorn.text = born
                 labelParents.text = "${father} & ${mother}"
                 labelQuote.text = quote
                 labelSpouse.text = spouse
 
                 val overlayColor = House.getOverlayColor(character.house.name)
-                imgOverlay.background =
-                    context?.let { it1 -> ContextCompat.getDrawable(it1,overlayColor) }
+                imgOverlay.background = ContextCompat.getDrawable(context!!, overlayColor)
 
                 val baseColor = House.getBaseColor(character.house.name)
-                btnHouse.backgroundTintList =
-                    context?.let { it1 -> ContextCompat.getColorStateList(it1, baseColor) }
+                btnHouse.backgroundTintList = ContextCompat.getColorStateList(context!!, baseColor)
 
                 val idDrawable = House.getIcon(character.house.name)
-                val drawable = context?.let { it1 -> ContextCompat.getDrawable(it1, idDrawable) }
+                val drawable = ContextCompat.getDrawable(context!!, idDrawable)
                 btnHouse.setImageDrawable(drawable)
 
+                Picasso.get()
+                    .load(character.img)
+                    .placeholder(R.drawable.test)
+                    .into(imgCharacter)
+            }
+        }
+        btnHouse.setOnClickListener {
+            if(character != null)
+            showDialog(character.house)
+        }
+}
 
-            }
-        }
-            btnHouse.setOnClickListener {
-                Toast.makeText(context, character?.house?.words, Toast.LENGTH_LONG).show()
-            }
-        }
+private fun showDialog(house: House){
+    val dialog = HouseDialog.newInstance(house)
+    dialog.show(childFragmentManager, "house_dialog")
+
     }
+}
+
 
